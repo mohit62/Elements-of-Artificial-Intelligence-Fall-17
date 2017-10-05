@@ -14,8 +14,7 @@
 [3]https://heuristicswiki.wikispaces.com/Linear+Conflict'''
 
 import sys,copy,heapq,math
-GoalState_Col={1:0,2:1,3:2,4:3,5:0,6:1,7:2,8:3,9:0,10:1,11:2,12:3,13:0,14:1,15:2,0:3}
-GoalState_Row={1:0,2:0,3:0,4:0,5:1,6:1,7:1,8:1,9:2,10:2,11:2,12:2,13:3,14:3,15:3,0:3}
+GoalState=[[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
 parent={}
 #print the puzzle board
 def printPuzzle(PuzzleBoard):
@@ -53,11 +52,11 @@ def linear_Conflict(board):
         for j in range(4):
             #Check for Linear Conflict horizontally
             for k in range(j+1, 4):
-                if GoalState_Row[board[i][k]]==i and GoalState_Row[board[i][j]]==i and GoalState_Col[board[i][k]] < GoalState_Col[board[i][j]] and board[i][k]!=0 and board[i][j]!=0 :
+                if get_Position(GoalState,board[i][k])[0]==i and get_Position(GoalState,board[i][j])[0]==i and get_Position(GoalState,board[i][k])[1] < get_Position(GoalState,board[i][j])[1] and get_Position(board,board[i][k])[0]==i and get_Position(board,board[i][j])[0]==i and board[i][k]!=0 and board[i][j]!=0:
                     LC_heuristic_value += 1
             #Check for Linear Conflict vertically
             for k in range(i + 1, 4):
-                if GoalState_Col[board[k][j]] == j and GoalState_Col[board[i][j]] == j and GoalState_Row[board[k][j]] < GoalState_Row[board[i][j]] and board[k][j]!=0 and board[i][j]!=0 :
+                if get_Position(GoalState,board[k][j])[1] == j and get_Position(GoalState,board[i][j])[1] == j and get_Position(GoalState,board[k][j])[0] < get_Position(GoalState,board[i][j])[0] and get_Position(board,board[k][j])[1]==j and get_Position(board,board[i][j])[1]==j and board[k][j]!=0 and board[i][j]!=0:
                     LC_heuristic_value += 1
     return LC_heuristic_value
 
